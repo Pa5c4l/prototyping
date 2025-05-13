@@ -10,6 +10,7 @@ const db = client.db("Prototyping"); // select database
 // Golf Set
 //////////////////////////////////////////
 
+// Display all golf sets
   async function getSets() {
     let sets = [];
     try {
@@ -23,20 +24,28 @@ const db = client.db("Prototyping"); // select database
     return sets;
   }
 
+  // Get golf set by id
   async function getSet(id) {
+    let set = null;
     try {
       const collection = db.collection("golfsets");
       const query = { _id: new ObjectId(id) };
-      const set = await collection.findOne(query);
-      if (!set) console.log("No set with id " + id);
-      else set._id = set._id.toString();
-      return set;
+      set = await collection.findOne(query);
+
+      if (!set) {
+        console.log("No set with id " + id);
+      }
+      else { 
+        set._id = set._id.toString();
+      }
     } catch (error) {
       console.log(error.message);
       return null;
     }
+    return set;
   }
 
+  // unfinished create new set
   async function createSet(set) {
     set.clubs = set.clubs || []; // Max 14 später prüfen
     try {
@@ -49,6 +58,7 @@ const db = client.db("Prototyping"); // select database
     }
   }
 
+  //unffinished
   async function updateSet(set) {
     try {
       let id = set._id;
@@ -65,6 +75,7 @@ const db = client.db("Prototyping"); // select database
     return null;
   }
 
+  //unfinished
   async function deleteSet(id) {
     try {
       const collection = db.collection("golfsets");

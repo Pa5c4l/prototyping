@@ -1,17 +1,33 @@
 <script>
   export let data;
-  const set = data.set;
+  let set = data.set;
 </script>
 
+<a href="/set">Back</a>
+<p></p>
+
 <h1>{set.name}</h1>
-<p>Anzahl Schläger: {set.clubs?.length || 0}</p>
+<div class="row mt-3">
+  <div class="col-3">
+    <img class="img-fluid" src={set.image} alt=""/>
+  </div>
 
-<h2>Schläger:</h2>
-<ul>
-  {#each set.clubs as club, i}
-    <li>{i + 1}. {club}</li>
-  {/each}
-</ul>
+  <div>
+    <p>Beschreibung: {set.notes}</p>
+  </div>
+  
+  <h2>Schläger:</h2>
+  <ul>
+    {#each set.clubs as club}
+      <li>{club}</li>
+    {/each}
+  </ul>
 
-<a href={`/set/${set._id}/edit`}>Bearbeiten</a>
-<a href="/">Zurück zur Übersicht</a>
+  <form method="POST" action="?/delete" class="mt-3">
+    <input type="hidden" name="id" value={data.set._id} />
+    <button type="submit" class="btn btn-danger">Delete Set</button>
+  </form>
+
+  <a href={`/set/${data.set._id}/edit`} class="btn btn-secondary me-2 mt-3">Edit Set</a>
+
+</div>

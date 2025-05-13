@@ -4,11 +4,11 @@
 </script>
 
 <nav
-  class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+  class="navbar navbar-expand-lg bg-success"
   data-bs-theme="dark"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Golf Sets</a>
+    <a class="navbar-brand" href="/">Golf Utopia</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -23,7 +23,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/set">Golf Sets</a>
+          <a class="nav-link active" aria-current="page" href="/set"
+            >Sets</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/club"
+            >Clubs</a
+          >
         </li>
       </ul>
     </div>
