@@ -16,10 +16,11 @@
     <p>Beschreibung: {set.notes}</p>
   </div>
   
+
   <h2>Schläger:</h2>
   <ul>
     {#each set.clubs as club}
-      <li>{club}</li>
+      <li>{club.name} – {club.type}</li>
     {/each}
   </ul>
 

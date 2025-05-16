@@ -2,13 +2,13 @@
   let { club } = $props();
 </script>
 
-<a href={`/set/${club._id}`} class="text-decoration-none text-reset">
+<a href={`/club/${club._id}`} class="text-decoration-none text-reset">
   <div class="club-card">
       <div>
           <img class="img-fluid" src={club.image} alt=""/>
       </div>
       <div class="details">
-          <div class="set-name">
+          <div class="club-name">
               {club.name}
           </div>
       </div>
@@ -31,7 +31,7 @@
   .details {
     padding: 0.5rem;
   }
-  .set-name {
+  .club-name {
     font-weight: bold;
   }
 </style>

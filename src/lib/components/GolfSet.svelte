@@ -13,7 +13,7 @@
           </div>
       </div>
       <div>
-          Manufacturer: {set.manufacturer}
+          Beschreibung: {set.notes}
       </div>
   </div>
 </a>
