@@ -11,7 +11,7 @@
 <p></p>
 
 <div class="row mt-3">
-  {#each data.clubs as club}
+  {#each data.clubs as club} // remove data., clubs as club
     <div class="col-sm-6 col-md-4 col-lg-3 mb-2 gx-2">
       <GolfClub {club}></GolfClub>
     </div>

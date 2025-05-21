@@ -1,4 +1,6 @@
 <script>
+    import { enhance } from "$app/forms";
+
   let { set } = $props();
 </script>
 
@@ -15,6 +17,8 @@
       <div>
           Beschreibung: {set.notes}
       </div>
+
+
   </div>
 </a>
 

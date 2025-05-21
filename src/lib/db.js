@@ -10,39 +10,30 @@ const db = client.db("Prototyping"); // select database
 // Golf Set
 //////////////////////////////////////////
 
-// Display all golf sets
-  async function getSets() {
-    let sets = [];
-    try {
-      const setCollection = db.collection("golfsets");
-    const clubCollection = db.collection("clubs");
-    
-    sets = await setCollection.find({}).toArray();
+// Get all golf sets
+async function getSets() {
+  let sets = [];
+  try {
+    const collection = db.collection("golfsets");
+    const query = {};
 
-    for (const set of sets) {
-      set._id = set._id.toString();
+    sets = await collection.find(query).toArray();
 
-      if (Array.isArray(set.clubs)) {
-        // Replace ObjectIds with full club objects
-        const populatedClubs = await Promise.all(
-          set.clubs.map(async (clubId) => {
-            const club = await clubCollection.findOne({ _id: new ObjectId(clubId) });
-            if (club) {
-              club._id = club._id.toString();
-              return club;
-            }
-            return null;
-          })
-        );
-        // Remove nulls in case of missing clubs
-        set.clubs = populatedClubs.filter(Boolean);
-      }
-    }
-    } catch (error) {
-      console.log(error);
-    }
-    return sets;
+    sets = sets.map((set) => ({
+      ...set,
+      _id: set._id.toString(),
+      clubs: set.clubs.map((club) =>
+        typeof club === "object" && club !== null && club._id
+          ? { ...club, _id: club._id.toString?.() ?? club._id }
+          : club.toString?.() ?? club
+      ),
+      createdAt: set.createdAt?.toString?.() ?? set.createdAt,
+    }));
+  } catch (error) {
+    console.log("Error in getSets:", error);
   }
+  return sets;
+}
 
 // Display all golf clubs
   async function getClubs() {
