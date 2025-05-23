@@ -1,6 +1,7 @@
 <script>
   import GolfSet from '$lib/components/GolfSet.svelte';
   let { data } = $props();
+  let sets = data.sets;
 
   /*checkbox Übung:
   let movies = $derived.by{} => {
@@ -23,7 +24,7 @@
 <p></p>
 
 <div class="row mt-3">
-  {#each data.sets as set} // sets as set, remove data.- if possible
+  {#each sets as set} 
     <div class="col-sm-6 col-md-4 col-lg-3 mb-2 gx-2">
       <GolfSet {set}></GolfSet>
     </div>

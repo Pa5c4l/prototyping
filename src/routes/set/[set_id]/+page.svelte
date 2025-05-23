@@ -1,6 +1,7 @@
 <script>
   export let data;
   let set = data.set;
+  import GolfClub from '$lib/components/GolfClub.svelte';
 </script>
 
 <a href="/set">Back</a>
@@ -18,11 +19,13 @@
   
 
   <h2>Schläger:</h2>
-  <ul>
+  <div class="row justify-content-center">
     {#each set.clubs as club}
-      <li>{club.name} – {club.type}</li>
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-2 gx-2">
+        <GolfClub {club} />
+      </div>
     {/each}
-  </ul>
+  </div>
 
   <form method="POST" action="?/delete" class="mt-3">
     <input type="hidden" name="id" value={data.set._id} />

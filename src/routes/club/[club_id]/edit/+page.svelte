@@ -30,6 +30,6 @@
     </div>
   
     <button type="submit" class="btn btn-primary">Save changes</button>
-    <a href={`/clubs/${data.club._id}`} class="btn btn-outline-secondary ms-2">Cancel</a>
+    <a href={`/club/${data.club._id}`} class="btn btn-outline-secondary ms-2">Cancel</a>
   </form>
 
