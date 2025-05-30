@@ -89,6 +89,36 @@ async function getSets() {
     return set;
   }
 
+  async function getSetWithClubIds(id) {
+  let set = null;
+  try {
+    const collection = db.collection("golfsets");
+    const query = { _id: new ObjectId(id) };
+    set = await collection.findOne(query);
+
+    if (!set) {
+      console.log("No set with id " + id);
+      return null;
+    }
+
+    set._id = set._id.toString();
+
+    // Nur Club-IDs als Strings zurückgeben
+    if (Array.isArray(set.clubs)) {
+      set.clubs = set.clubs.map(clubId => clubId.toString());
+    } else {
+      set.clubs = [];
+    }
+
+  } catch (error) {
+    console.log("Error in getSetWithClubIds:", error.message);
+    return null;
+  }
+  return set;
+}
+
+
+
   // Get club by ID
   async function getClub(id) {
     let club = null;
@@ -138,19 +168,11 @@ async function getSets() {
 
   //unffinished
   async function updateSet(set) {
-    try {
-      let id = set._id;
-      delete set._id;
-      const collection = db.collection("golfsets");
-      const query = { _id: new ObjectId(id) };
-      const result = await collection.updateOne(query, { $set: set });
-
-      if (result.matchedCount > 0) return id;
-      console.log("No set with id " + id);
-    } catch (error) {
-      console.log(error.message);
-    }
-    return null;
+    const collection = db.collection("golfsets");
+    await collection.updateOne(
+      { _id: new ObjectId(set._id) },
+      { $set: { clubs: set.clubs } }
+    );
   }
 
   //update club
@@ -204,6 +226,7 @@ export default {
   getSets,
   getClubs,
   getSet,
+  getSetWithClubIds,
   getClub,
   createSet,
   createClub,

@@ -1,30 +1,32 @@
 <script>
   export let data;
-  let name = data.set.name;
-  let clubs = data.set.clubs.join(', ');
-
-  async function submit() {
-    const response = await fetch(`/set/${data.set._id}/edit`, {
-      method: 'POST',
-      body: JSON.stringify({
-        _id: data.set._id,
-        name,
-        clubs: clubs.split(',').map(c => c.trim())
-      }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    if (response.ok) {
-      location.href = `/set/${data.set._id}`;
-    }
-  }
+  let { set, clubs } = data;
 </script>
 
 <h1>Set bearbeiten</h1>
 
-<label>Name: <input bind:value={name} /></label>
-<br />
-<label>Schläger (kommagetrennt): <input bind:value={clubs} /></label>
-<br />
-<button on:click={submit}>Aktualisieren</button>
-<a href={`/set/${data.set._id}`}>Abbrechen</a>
+<form method="POST">
+  <input type="hidden" name="_id" value={set._id} />
+
+  <p>Name: </p>
+  <input name="name" value={set.name} />
+  <br />
+
+  <fieldset>
+    <legend>Clubs im Set:</legend>
+    {#each clubs as club}
+      <label>
+        <input
+          type="checkbox"
+          name="clubs"
+          value={club._id}
+          checked={set.clubs.includes(club._id)}
+        />
+        {club.name}
+      </label><br />
+    {/each}
+  </fieldset>
+
+  <button type="submit">Speichern</button>
+  <a href={`/set/${set._id}`}>Abbrechen</a>
+</form>

@@ -3,23 +3,22 @@ import { redirect } from '@sveltejs/kit';
 import { actions } from '../+page.server.js';
 
 export async function load({ params }) {
-  const set = await db.getSet(params.set_id);
-  return { set };
+  const set = await db.getSetWithClubIds(params.set_id);
+  const clubs = await db.getClubs();
+  return { set, clubs };
 }
 
-export const actions = { //unfishined 
-  changeclubs: async ({request}) => {
-    console.log()
-    let data = await request.formData()
-    let id = data.get("clubId")
+export const actions = { 
+  default: async ({ request }) => {
+    const data = await request.formData();
+    const _id = data.get('_id');
+    const selectedClubs = data.getAll('clubs'); // alle ausgewählten Checkbox-Werte
 
-    let club = {
-      _id: id,
-      //new stuff update/change remove club somehow
-    }
+    await db.updateSet({
+      _id,
+      clubs: selectedClubs.map(id => id.toString())
+    });
 
-    await db.updateSet(club)
-  
+    return { success: true };
   }
-  
-}
+};
