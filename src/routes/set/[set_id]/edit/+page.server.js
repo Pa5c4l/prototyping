@@ -1,6 +1,5 @@
 import db from '$lib/db';
 import { redirect } from '@sveltejs/kit';
-import { actions } from '../+page.server.js';
 
 export async function load({ params }) {
   const set = await db.getSetWithClubIds(params.set_id);
