@@ -1,25 +1,48 @@
 <script>
-  let name = "";
-  let clubsRaw = "";
+  export let data;
+  let name = '';
+  let notes = '';
+  let selectedClubs = new Set();
 
-  async function submit() {
-    const response = await fetch('/set/create', {
-      method: 'POST',
-      body: JSON.stringify({ name, clubs: clubsRaw.split(',').map(c => c.trim()) }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-
-    if (response.ok) {
-      location.href = '/';
+  function toggleClub(id) {
+    if (selectedClubs.has(id)) {
+      selectedClubs.delete(id);
+    } else {
+      selectedClubs.add(id);
     }
   }
 </script>
 
 <h1>Neues Golf-Set erstellen</h1>
 
-<label>Set-Name: <input bind:value={name} /></label>
-<br />
-<label>Schläger (kommagetrennt): <input bind:value={clubsRaw} /></label>
-<br />
-<button on:click={submit}>Speichern</button>
-<a href="/">Abbrechen</a>
+<form method="POST">
+  <p>Name des Sets: </p>
+  <input name="name" bind:value={name} required />
+  <br /><br />
+
+  <label for="set-notes">Beschreibung:</label><br />
+  <textarea id="set-notes" name="notes" bind:value={notes} rows="4" cols="40" ></textarea>
+  <br /><br />
+
+  <fieldset>
+    <legend>Clubs auswählen:</legend>
+    {#each data.clubs as club}
+      <label>
+        <input
+          type="checkbox"
+          name="clubs"
+          value={club._id}
+          on:change={() => toggleClub(club._id)}
+        />
+        {club.name}
+      </label><br />
+    {/each}
+  </fieldset>
+
+  <br />
+
+  <div class="d-flex gap-2 mt-3">
+    <button type="submit" class="btn btn-primary">Set erstellen</button>
+    <a href="/set" class="btn btn-secondary">Abbrechen</a>
+  </div>
+</form>

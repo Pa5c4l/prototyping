@@ -4,15 +4,23 @@ import { redirect } from '@sveltejs/kit';
 export const actions = {
   create: async ({ request }) => {
     const data = await request.formData();
-    let club = {
-      _id: data.get('id'),                
+
+    const club = {
       name: data.get('name'),
       type: data.get('type'),
       manufacturer: data.get('manufacturer'),
       loft: data.get('loft'),
       description: data.get('description')
     };
-    await db.createClub(club);
-    return { success: true };
-  },
+
+    const result = await db.createClub(club);
+
+    // Nur wenn Club erfolgreich erstellt wurde:
+    if (result) {
+      throw redirect(303, '/club');
+    }
+
+    // Falls Fehler: bleibe auf Seite
+    return { success: false };
+  }
 };

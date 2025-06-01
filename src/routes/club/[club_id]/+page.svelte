@@ -3,29 +3,39 @@
   let club = data.club;
 </script>
 
-<a href="/club">Back</a>
-<p></p>
+<!-- Zurück-Link -->
+<div class="mb-3">
+  <a href="/club" class="btn btn-outline-secondary">&larr; Zurück zur Übersicht</a>
+</div>
 
-<h1>{club.name}</h1>
-<div class="row mt-3">
-  <div class="col-3">
-    <img class="img-fluid" src={club.image} alt=""/>
+<!-- Titel -->
+<h1 class="h3 mb-4">{club.name}</h1>
+
+<!-- Club-Details -->
+<div class="row align-items-start mb-4">
+  <!-- Bild -->
+  <div class="col-md-4 mb-3">
+    <img src={club.image} alt={club.name} class="img-fluid rounded shadow-sm" />
   </div>
 
-  <div class="mb-3">
-    <p>Name: {data.club.name}</p>
-    <p>Type: {data.club.type}</p>
-    <p>Manufacturer: {data.club.manufacturer}</p>
-    <p>Loft: {data.club.loft}</p>
-    <p>Description: {data.club.description}</p>
+  <!-- Details -->
+  <div class="col-md-8">
+    <ul class="list-group club-details-list mb-3">
+      <li class="list-group-item"><strong>Name:</strong> {club.name}</li>
+      <li class="list-group-item"><strong>Typ:</strong> {club.type}</li>
+      <li class="list-group-item"><strong>Hersteller:</strong> {club.manufacturer}</li>
+      <li class="list-group-item"><strong>Loft:</strong> {club.loft}</li>
+      <li class="list-group-item"><strong>Beschreibung:</strong><br />{club.description}</li>
+    </ul>
+
+    <!-- Aktionen -->
+    <div class="d-flex gap-2">
+      <a href={`/club/${club._id}/edit`} class="btn btn-outline-primary">Club bearbeiten</a>
+
+      <form method="POST" action="?/delete">
+        <input type="hidden" name="id" value={club._id} />
+        <button type="submit" class="btn btn-outline-danger">Club löschen</button>
+      </form>
+    </div>
   </div>
-
-
-  <form method="POST" action="?/delete" class="mt-3">
-    <input type="hidden" name="id" value={data.club._id} />
-    <button type="submit" class="btn btn-danger">Delete club</button>
-  </form>
-
-  <a href={`/club/${data.club._id}/edit`} class="btn btn-secondary me-2 mt-3">Edit club</a>
-
 </div>

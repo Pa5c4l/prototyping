@@ -140,9 +140,10 @@ async function getSets() {
     return club;
   }
 
-  // unfinished create new set
+  // create new set
   async function createSet(set) {
     set.clubs = set.clubs || []; // Max 14 später prüfen
+    set.image = "/images/placeholderSet.jpg"; // default poster
     try {
       const collection = db.collection("golfsets");
       const result = await collection.insertOne(set);
@@ -153,9 +154,9 @@ async function getSets() {
     }
   }
 
-  // unfinished create new set
+  // create new club
   async function createClub(club) {
-    club.image = "/images/placeholder.jpg"; // default poster
+    club.image = "/images/placeholderClub.jpg"; // default poster
     try {
       const collection = db.collection("clubs");
       const result = await collection.insertOne(club);
@@ -166,7 +167,7 @@ async function getSets() {
     }
   }
 
-  //unffinished
+  //update set with name and clubs
   async function updateSet(set) {
     const collection = db.collection("golfsets");
     await collection.updateOne(
@@ -192,7 +193,7 @@ async function getSets() {
     return null;
   }
 
-  //unfinished
+  //delete set by id, works
   async function deleteSet(id) {
     try {
       const collection = db.collection("golfsets");
@@ -224,14 +225,14 @@ async function getSets() {
 
 export default {
   getSets,
-  getClubs,
   getSet,
   getSetWithClubIds,
-  getClub,
   createSet,
-  createClub,
   updateSet,
-  updateClub,
   deleteSet,
+  getClubs,
+  getClub,
+  createClub,
+  updateClub,
   deleteClub
 };

@@ -11,7 +11,7 @@ export const actions = {
   delete: async ({ request }) => {
     const data = await request.formData();
 
-    await db.deleteclub(data.get("id"));
-    redirect(303, "/club");
+    await db.deleteClub(data.get("id"));
+    throw redirect(303, "/club");
   },
 };
