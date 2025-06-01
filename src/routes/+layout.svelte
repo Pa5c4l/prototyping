@@ -8,7 +8,7 @@
   data-bs-theme="dark"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Golf Utopia</a>
+    <a class="navbar-brand" href="/">ProGolf Otelfingen</a>
     <button
       class="navbar-toggler"
       type="button"
