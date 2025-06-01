@@ -169,11 +169,16 @@ async function getSets() {
 
   //update set with name and clubs
   async function updateSet(set) {
-    const collection = db.collection("golfsets");
-    await collection.updateOne(
-      { _id: new ObjectId(set._id) },
-      { $set: { clubs: set.clubs } }
-    );
+    try {
+      const collection = db.collection("golfsets");
+      await collection.updateOne(
+        { _id: new ObjectId(set._id) },
+        { $set: { clubs: set.clubs } }
+      );
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
   }
 
   //update club
@@ -183,10 +188,12 @@ async function getSets() {
       delete club._id;
       const collection = db.collection("clubs");
       const query = { _id: new ObjectId(id) };
-      const result = await collection.updateOne(query, { $club: club });
+      const result = await collection.updateOne(query, { $set: club });
+
 
       if (result.matchedCount > 0) return id;
       console.log("No club with id " + id);
+
     } catch (error) {
       console.log(error.message);
     }

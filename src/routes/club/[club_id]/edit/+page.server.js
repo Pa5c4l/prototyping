@@ -1,5 +1,6 @@
 import db from '$lib/db.js';
 import { redirect } from '@sveltejs/kit';
+import { ObjectId } from 'mongodb';
 
 export async function load({ params }) {
   return {
@@ -8,11 +9,11 @@ export async function load({ params }) {
 }
 
 export const actions = {
-  update: async ({ request }) => {
+  default: async ({ request }) => {
     const data = await request.formData();
 
     const club = {
-      _id: data.get('id'),                
+      _id: data.get('_id'),                
       name: data.get('name'),
       type: data.get('type'),
       manufacturer: data.get('manufacturer'),
@@ -20,8 +21,10 @@ export const actions = {
       description: data.get('description')
     };
 
+    const id = club._id;
+
     await db.updateClub(club);
 
-    throw redirect(303, `/club/${club._id}`);
+    throw redirect(303, `/club/${id}`);
   }
 }

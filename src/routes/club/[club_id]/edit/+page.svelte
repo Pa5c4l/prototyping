@@ -10,8 +10,8 @@
 </div>
 
 <!-- Formular -->
-<form class="form-block" method="POST" action="?/update">
-  <input type="hidden" name="id" value={club._id} />
+<form method="POST">
+  <input type="hidden" name="_id" value={club._id} />
 
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
