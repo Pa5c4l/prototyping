@@ -173,7 +173,10 @@ async function getSets() {
       const collection = db.collection("golfsets");
       await collection.updateOne(
         { _id: new ObjectId(set._id) },
-        { $set: { clubs: set.clubs } }
+        { $set: { 
+          name: set.name,
+          notes: set.notes, 
+          clubs: set.clubs } }
       );
     } catch (error) {
       console.log(error.message);

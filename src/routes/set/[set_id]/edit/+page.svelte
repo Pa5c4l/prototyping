@@ -25,6 +25,16 @@
     />
   </div>
 
+  <div class="mb-4">
+    <label for="notes" class="form-label">Notizen</label>
+    <textarea
+      id="notes"
+      name="notes"
+      class="form-control"
+      rows="3"
+    >{set.notes}</textarea>
+  </div>
+
   <!-- Clubs als visuelle Checkbox-Karten -->
   <fieldset class="mb-4">
     <legend class="form-label">Clubs im Set</legend>
