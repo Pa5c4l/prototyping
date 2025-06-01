@@ -1,5 +1,6 @@
 import db from '$lib/db';
 import { redirect } from '@sveltejs/kit';
+import { ObjectId } from 'mongodb';
 
 export async function load() {
   const clubs = await db.getClubs();
@@ -16,7 +17,7 @@ export const actions = {
     const newSet = {
       name,
       notes,
-      clubs: clubs.map(id => id.toString()),
+      clubs: clubs.map(id => new ObjectId(id)),
       createdAt: new Date()
     };
 

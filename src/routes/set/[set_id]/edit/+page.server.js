@@ -1,5 +1,6 @@
 import db from '$lib/db';
 import { redirect } from '@sveltejs/kit';
+import { ObjectId } from 'mongodb';
 
 export async function load({ params }) {
   const set = await db.getSetWithClubIds(params.set_id);
@@ -15,9 +16,9 @@ export const actions = {
 
     await db.updateSet({
       _id,
-      clubs: selectedClubs.map(id => id.toString())
+      clubs: selectedClubs.map(id => new ObjectId(id))
     });
 
-    return { success: true };
+    throw redirect(303, `/set/${_id}`);
   }
 };
